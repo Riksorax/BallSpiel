@@ -35,10 +35,10 @@ namespace BallSpiel
             _animationsTimer.Tick += PositionierneBall;
         }
 
-        private void PositionierneBall(object sender, EventArgs e)
+        public void PositionierneBall(object sender, EventArgs e)
         {
             var x = Canvas.GetLeft(Ball);
-            var y = Canvas.GetTop(Ball);
+            
 
             if (walkToRight)
             {
@@ -58,6 +58,9 @@ namespace BallSpiel
                 walkToRight = true;
             }
 
+
+            var y = Canvas.GetTop(Ball);
+
             if (walkToTop)
             {
                 Canvas.SetTop(Ball, y + 5);
@@ -72,10 +75,8 @@ namespace BallSpiel
             }
             else if(y <= 0)
             {
-                walkToTop = true;
+                walkToTop = true;            
             }
-            
-            
             
         }
 
@@ -105,12 +106,40 @@ namespace BallSpiel
             }
         }
 
+        // Hier werden die Tasten defeniert die man im Spiel benutzen kann.
+        //Dazu verwende ich dem Switch Block und in den verschieneden Case sind die Tasten hinterleget und was die einzelne Taste machen soll
         private void Ball_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F)
+            switch (e.Key)
             {
-                Ball.Fill = Brushes.Red;
+                case Key.F: 
+                    Ball.Fill = Brushes.Red;
+                    break;
+
+                case Key.D:
+                    Ball.Fill = Brushes.Black;
+                    break;
+
+                case Key.Left:
+                    walkToRight = false;
+                    break;
+
+                case Key.Right:
+                    walkToRight = true;
+                    break;
+
+                case Key.Down:
+                    walkToTop = true;
+                    break;
+
+                case Key.Up:
+                    walkToTop = false;
+                    break;
+
+                default:
+                    break;
             }
-        }
+        }              
+
     }
 }
